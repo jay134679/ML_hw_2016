@@ -1,0 +1,653 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+%\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{mathtools} %More math! (For dscases)
+\usepackage{hyperref} %HTML package
+\usepackage{pgfplots} %Makes plots in LaTeX
+\usepackage{tikz} %Also tikz?
+\usepackage{bm} %makes vectors bold
+\usepackage{bbm} %Blackboard bold 1
+\usepackage{amssymb} %Define equal triangle
+\usepgfplotslibrary{fillbetween}%Let's me fill between named plots
+\usepackage{graphicx} %import pics
+\graphicspath{ {Python_figs/} }
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{ \normalfont\scshape} % Make all sections the default font and small caps
+
+
+\renewcommand{\thesubsection}{\alph{subsection}} %Make subsections start with letters
+\usepackage{array} % Center in tabular
+\usepackage{url} %typeset url
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	Assignment 4}
+
+\author{Benjamin Jakubowski} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\section*{2. Positive Semidefinite Matrices}
+\subsection*{2.1 Orthogonal, non-symmetric matrix}
+
+Let
+\[A = \left[
+\begin{matrix}
+	0 & 0 & 1 \\
+	1 & 0 & 0 \\
+	0 & 1 & 0
+\end{matrix}
+\right]
+\]
+Then the columns of $A$ are clearly orthonormal, but $A \ne A^T$ since
+\[A^T = \left[
+\begin{matrix}
+	0 & 1 & 0 \\
+	0 & 0 & 1 \\
+	1 & 0 & 0
+\end{matrix}
+\right]
+\]
+
+\subsection*{2.2 Positive semidefinite matrix has non-negative eigenvalues}
+
+Let $M$ be a positive semidefinite matrix. Then, by the definition of positive semidefinite, $m$ is a real symmetric matrix. Thus, by the spectral theorem, we can diagonalize $M$ as
+\[M = Q \Sigma Q^T\]
+
+Then, since $Q$ is orthogonal (columns are orthonormal eigenvectors), we have
+\[Q^TMQ = Q^T Q \Sigma Q^T Q = \mathbb{I}_n \Sigma \mathbb{I}_n = \Sigma\]
+
+Now,
+
+\[\Sigma = Q^TMQ = \left(
+\begin{matrix}
+	q_1^TMq_1 & q_1^TMq_2 & \cdots & q_1^TMq_n \\ 
+	q_2^TMq_1 & q_2^TMq_2 & \cdots & q_2^TMq_n \\ 
+	\vdots & \vdots & \cdots & \vdots \\
+	q_n^TMq_1 & q_n^TMq_2 & \cdots & q_n^TMq_n \\ 
+\end{matrix}
+\right)
+\]
+Finally, since $q_i^T M q_i \geq 0$ (by $M$ positive semidefinite), this implies all of the eigenvalues of $M$ (i.e. the diagonal entries of $\Sigma$) are non-negative.
+
+\subsection*{2.3 $M=BB^T$ if and only if $M$ is psd}
+
+We first prove the forward direction: if $M$ is positive semidefinite, then (by above) we know its eigenvalues are non-negative. Thus, (noting $\Sigma$ is diagonal with non-negative entries) we can rewrite
+\[\Sigma = {\Sigma'}^2 = {\Sigma'}^T \Sigma'\]
+where
+\[
+\Sigma' = 
+\left(
+\begin{matrix}
+	\sqrt{\lambda_1} & 0 & \cdots & 0 \\
+	0 & \sqrt{\lambda_2} & \cdots & 0 \\
+	\vdots & \vdots & \cdots & \vdots \\
+	0 & 0 & \cdots & \sqrt{\lambda_n}
+\end{matrix}
+\right)
+\]
+
+Thus,
+\[M= Q^T \Sigma Q = Q^T  {\Sigma'}^T \Sigma' Q = ({\Sigma' Q})^T \Sigma' Q\]
+
+so setting $B = ({\Sigma' Q})^T$ yields the desired results: $M = BB^T$. \\
+
+Next, we prove the backwards direction: if $M = BB^T$ for some matrix $B$, then
+\[x^TMx = x^TB B^Tx = (B^Tx)^T (B^Tx) \geq 0 \]
+ since for any vector $v, v^Tv \geq 0$. Thus we have
+\[x^TMx \geq 0\]
+so $M$ is positive semidefinite. Having demonstrated both directions, we conclude a symmetric matrix $M$ can be expressed as $M = BB^T$ for some matrix $B$ if and only if $M$ is positive semidefinite.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{3. Positive Definite Matrices}
+\subsection*{3.1 Eigenvalues of Positive Definite Matrix are Positive}
+
+Let $M$ be a positive definite matrix. Then (similarly to 2.2) we have
+\[\Sigma = Q^TMQ = \left(
+\begin{matrix}
+	q_1^TMq_1 & q_1^TMq_2 & \cdots & q_1^TMq_n \\ 
+	q_2^TMq_1 & q_2^TMq_2 & \cdots & q_2^TMq_n \\ 
+	\vdots & \vdots & \cdots & \vdots \\
+	q_n^TMq_1 & q_n^TMq_2 & \cdots & q_n^TMq_n \\ 
+\end{matrix}
+\right)
+\]
+Finally, since $q_i^T M q_i > 0$ (by $M$ positive definite), this implies all of the eigenvalues of $M$ (i.e. the diagonal entries of $\Sigma$) are positive.
+
+\subsection*{3.2 $Q\Sigma^{-1}Q^T$ is inverse of $M$}
+
+First, let $M$ be a symmetric positive definite matrix. Then the spectral theorem gives:
+\[M = Q \Sigma Q^T\]
+where $Q$ is the matrix with orthonormal eigenvectors of $M$ as columns. Since $Q$ is orthonormal, we know $Q^T = Q^{-1}$. Thus,
+\[(Q \Sigma^{-1} Q^T) M = Q \Sigma^{-1} Q^T Q \Sigma Q^T = Q \Sigma^{-1} \mathbb{I}_n \Sigma Q^T = Q \Sigma^{-1}\Sigma Q^T = Q \mathbb{I}_n Q^T = Q Q^T = \mathbb{I}_n\]
+so $Q\Sigma^{-1}Q^T$ is the inverse of $M$.
+
+\subsection*{3.3 $M + \lambda \mathbb{I}$ is symmetric positive definite for any $\lambda > 0$}
+
+If $M$ is a positive semidefinite matrix then recall
+\begin{itemize}
+\item $M = Q \Sigma Q^T$
+\item $M$ has eigenvalues $\lambda_i \geq 0$
+\end{itemize}
+Now consider $M + \lambda \mathbb{I}$ for some $\lambda > 0$. Before we proceed, note
+\[\lambda \mathbb{I} = \lambda Q Q^T = Q \lambda \mathbb{I} Q^T \] 
+Thus,
+\[M + \lambda \mathbb{I} = Q \Sigma Q^T + Q \lambda \mathbb{I} Q^T = Q(\Sigma + \lambda \mathbb{I})Q^T\]
+But then the eigenvalues of $M + \lambda \mathbb{I}$ are the diagonal entries of $\Sigma + \lambda \mathbb{I}$, which are all positive. Therefore, since $M + \lambda \mathbb{I}$ is symmetric matrix with positive eigenvalues, it is positive definite. It's inverse is then (by 3.2)
+\[(M + \lambda \mathbb{I})^{-1} = Q^T (\Sigma + \lambda \mathbb{I})^{-1} Q\]
+(noting $(\Sigma + \lambda \mathbb{I})^{-1}$ is defined since the matrix is diagonal with non-zero entries).
+
+\subsection*{3.4 $M+N$ positive definite}
+
+Let $M$ be positive semidefinite, and $N$ be positive definite. Now consider $M + N$. Well,
+\[x(M + N)x^T = \underbrace{xMx^T}_{\geq 0} + \underbrace{xNx^T}_{>0} > 0\]
+So $M + N$ is positive definite.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{4. Kernel Matrices}
+\subsection*{4.1 Kernel matrix as pairwise distance and vector length}
+
+Let $X$ be the matrix whose rows are the vectors in a set $S = \{x_1, \cdots, x_m\}$, and let $K = XX^T$. Then note
+\[
+K = X X^T
+\left(
+\begin{matrix}
+	\langle x_1, x_1 \rangle & \langle x_1, x_2 \rangle & \cdots & \langle x_1, x_n \rangle \\
+	\langle x_2, x_1 \rangle & \langle x_2, x_2 \rangle & \cdots & \langle x_2, x_n \rangle \\
+	\vdots & \vdots & \cdots & \vdots \\
+	\langle x_n, x_1 \rangle & \langle x_n, x_2 \rangle & \cdots & \langle x_n, x_n \rangle
+\end{matrix}
+\right)
+\]
+
+Now, note the distance between any two vectors $x_i, x_j$ in $S$ is
+\begin{align*}
+d(x_i, x_j) &= ||x_i - x_j|| \\
+	&= \sqrt{\langle x_i - x_j, x_i - x_j \rangle} \\
+	&=  \sqrt{\langle x_i, x_i \rangle -2 \langle x_i, x_j \rangle + \langle x_j, x_j \rangle}
+\end{align*}
+This can clearly be computed from $K$.
+Similarly, the length of any vector $x_i$ in $S$ is just $\sqrt{\langle x_i, x_i \rangle}$, which is just the square root of the $i, i$ entry of $K$. Thus, knowing $K$ implies you know the set of pairwise distances and the vector lengths.\\
+
+The reverse implication follows directly. If you know the pairwise distances and the vector lengths, then (for arbitrary $x_i, x_j \in S$) note
+\[\left(d(x_i, x_j)\right)^2 = \langle x_i, x_i \rangle -2 \langle x_i, x_j \rangle + \langle x_j, x_j \rangle\]
+Thus, subtracting off the squared lengths of $x_i$ and $x_j$ and dividing by -2 yields  $\langle x_i, x_j \rangle$. Thus, we know both the diagonal and off-diagonal entries and can reconstruct $K$.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{5. Kernel Ridge Regression}
+\subsection*{5.1 Minimizing the ridge objective}
+
+Recall the ridge objective function is
+\[J(w) = ||Xw - y||^2 + \lambda||w||^2\]
+
+Let $w*$ be a minimizer of $J(w)$. Then
+\begin{align*}
+\nabla_w J(w*) &= 2X^T (Xw^*-y) + 2 \lambda w^* = 0 \\
+\implies \qquad{} X^TXw^* + \lambda \mathbb{I} w^* &= X^T y\\
+\end{align*}
+
+Thus, the minimizer is
+\[w^* = (X^TX + \lambda \mathbb{I})^{-1}X^Ty\]
+Note $X^TX + \lambda \mathbb{I}$ is invertible, since $X^TX$ is positive semidefinite (by 2.3), so we can apply the result of 3.3.
+
+\subsection*{5.2 Rewriting expression from 5.1}
+
+\begin{align*}
+X^TXw^* + \lambda \mathbb{I} w^* &= X^T y \\
+\implies \qquad \lambda \mathbb{I} w^* &= X^T y - X^TXw^* \\
+\implies \qquad \mathbb{I} w^* &= \frac{1}{\lambda}(X^T y - X^TXw^*) \\
+\implies \qquad w^* &= \frac{1}{\lambda}(X^T y - X^TXw^*)
+\end{align*}
+
+Now we find $\alpha$ such that $w^* = X^T \alpha$. Factoring out $X^T$ from the expression for $w^*$ yields
+\[w^* = X^T \frac{y - Xw^*}{\lambda}\]
+Thus, setting $\alpha =  \frac{y - Xw^*}{\lambda}$ we get $w^* = X^T \alpha$. Note, by way of interpretation, we see $\alpha = \frac{r}{\lambda}$, where $r$ is the residual vector.
+
+\subsection*{5.3 Rewriting expression from 5.3}
+
+$w^*$ is in the span of the data since
+\[w^* = X^T \alpha = \sum_{i = 1}^n \alpha_i x_i^T\]
+(to see this, recall the matrix-vector product $Mv$ is just a linear combination of the columns of $M$, weighted by coefficients $v[i]$).  
+
+\subsection*{5.4 Show $\alpha = (\lambda \mathbb{I} + XX^T)^{-1}y$}
+
+Starting with the expression, 
+\[\alpha =  \frac{y - Xw^*}{\lambda}\]
+we substitute in our expression for $w^* =  X^T\alpha$ to get
+\begin{align*}
+\alpha &= \frac{y - XX^T\alpha}{\lambda}\\
+	&= \frac{1}{\lambda} y  -  \frac{1}{\lambda} XX^T\alpha \\
+\implies \qquad{} \lambda \alpha + XX^T\alpha &= y \\ 
+(\lambda \mathbb{I} + \underbrace{XX^T}_{\textrm{psd}}) \alpha &= y \\ 
+\alpha &= (\lambda \mathbb{I} + XX^T)^{-1}y
+\end{align*}
+ Note the inverse in the final expression exists (by 3.3 and $XX^T$ positive semidefinite, which follows from 2.3).
+
+\subsection*{5.5 Kernelized expression for $Xw^*$}
+
+To find a kernelized expression for $Xw^*$, we first substitute in for $w^*$, then for $\alpha$:
+\begin{align*}
+Xw^* &= XX^T\alpha \\
+	&= XX^T (\lambda \mathbb{I} + XX^T)^{-1}y
+\end{align*}
+Since the data only appears in terms of the kernel matrix $K = XX^T$, we're done.
+
+\subsection*{5.6 Kernelized expression for the prediction $f(x) = x^Tw^*$}
+
+Again, we use a similar approach as 5.5 (to ease notation, we call our new point $z$):
+\begin{align*}
+f(z)=z^Tw^* &= z^TX^T\alpha \\
+	&= z^TX^T (\lambda \mathbb{I} + XX^T)^{-1}y \\
+	&= k_z^T (\lambda \mathbb{I} + XX^T)^{-1}y
+\end{align*}
+where
+\[k_z =
+\left(
+\begin{matrix}
+z^Tx_1 \\
+\vdots \\
+z^Tx_n \\
+\end{matrix}
+\right)
+\]
+
+Since the new point $z$ only appears in inner products with other $x$'s, we're done.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{6. Decision Trees}
+\subsection*{6.1 Building Trees by Hand}
+
+To build our binary classification tree on this data using the Gini index, we need to consider six splits: splitting on $spots$, $color$, and on $size \leq 1, 2, 3, \textrm{or } 4$. Results for these splits are shown below: \\
+
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c |}
+\hline
+	\textbf{Split} & $\hat{p}_1$ & $Q_1$ & $N_1$ & $\hat{p}_2$ & $Q_2$ & $N_2$ & $N_1Q_1 + N_2Q_2$ \\
+\hline
+	$spots$ & 0.714 & 0.408 & 7 & 0 & 0 & 4 & 2.857 \\ \hline
+	$color$ & 0.4 & 0.48 & 5 & 0.5 & 0.5 & 6 & 5.4 \\ \hline
+	$size \leq 1$ & 0.667 & 0.444 & 3 & 0.375 & 0.469 & 8 & 5.083 \\ \hline
+	$size \leq 2$ & 0.4 & 0.48 & 5 & 0.5 & 0.5 & 6 & 5.4 \\ \hline
+	$size \leq 3$ & 0.333 & 0.444 & 6 & 0.6 & 0.48 & 5 & 5.067 \\ \hline
+	$size \leq 4$ & 0.444 & 0.494 & 9 & 0.5 & 0.05 & 2 & 5.444 \\ \hline
+\end{tabular}
+\end{center}
+
+Thus, the first split (using the Gini index) is on $spots$ (Y/N).
+
+\subsection*{6.2 Splitting next two parts}
+
+After splitting on $spots$, note the $spots = No$ node is pure (entirely non-poisonous), so no additional splits are needed. On the other side of the stump, we continue splitting:
+
+\begin{center}
+\begin{tabular}{| c | c | c | c | c | c | c | c |}
+\hline
+	\textbf{Split} & $\hat{p}_1$ & $Q_1$ & $N_1$ & $\hat{p}_2$ & $Q_2$ & $N_2$ & $N_1Q_1 + N_2Q_2$ \\
+\hline
+	$color$ & 0.666 & 0.444 & 3 & 0.75 & 0.375 & 4 & 2.833 \\ \hline
+	$size \leq 1$ & 1 & 0 & 2 & 0.6 & 0.48 & 5 & 2.4 \\ \hline
+	$size \leq 2$  & 0.666 & 0.444 & 3 & 0.75 & 0.375 & 4 & 2.833 \\ \hline
+	$size \leq 3$ & 0.5 & 0.5 & 4 & 1 & 0 & 3 & 2 \\ \hline
+	$size \leq 4$ &  0.666 & 0.444 & 6 & 1 & 0 & 1 & 2.667 \\ \hline
+\end{tabular}
+\end{center}
+Thus, we split on $spots \leq 3$. Thus, for our decision function, we've partitioned the input space into three regions. These regions, the number of observations, and the predicted probability of poisonous are given below:
+\begin{center}
+\begin{tabular} {| c | c | c |}
+\hline
+	Region & Number of observations & Probability of poisonous \\
+\hline
+	No spots & 4 & 0 \\
+\hline
+	Spots and size $\leq$ 3 & 4  & 0.5\\
+\hline
+	Spots and size > 3 & 3 & 1\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{6.3 Maximally deep binary tree}
+
+Recall the data have three binary features: $A, B$, and $C$, and we build the tree so all terminal nodes are either pure or cannot be split further. In this case, "cannot be split further" implies we have fully specified the values of $A, B$, and $C$ (ex: $A = 0, B = 1$, and $C = 1$), but the values of the target in this region are not pure. \\
+
+Given this approach (and the given data), we would misclassify two instances out of 11. Thus, our training error would be $18.2\%$.
+
+\subsection*{6.2 Investigation Impurity Measures}
+
+In this problem, we consider two decision stumps: $A$ and $B$. The stumps partition the input space into two regions, with the following target class distributions:
+\begin{center}
+\begin{tabular}{| c | c | c |}
+\hline
+Stump & $R_1$ distribution & $R_2$ distribuiton \\
+\hline
+A & (300, 100) & (100, 300) \\
+\hline
+B & (200, 400) & (200, 0) \\
+\hline
+\end{tabular}
+\end{center}
+
+To compare these splits, the misclassification rate, cross-entropy, and Gini impurity are given below:
+\begin{center}
+\begin{tabular}{| c | c | c | }
+\hline
+Stump & Metric & Value\\
+\hline
+A &  Misclassification  & $1/2 \cdot 1/4 + 1/2 \cdot 1/4 = 0.25$ \\
+\hline
+B &  Misclassification  & $3/4 \cdot 1/3 + 1/4 \cdot 0 = 0.25$ \\
+\hline
+A & Cross entropy & $2 \cdot \left(-1/2 \cdot (0.25 \cdot \log 0.25 + 0.75 \cdot \log 0.75) \right) = 0.56$  \\
+\hline
+B &  Cross entropy & $-3/4 \cdot (1/3 \cdot \log 1/3 + 2/3 \cdot \log 2/3) -1/4 \cdot (1 \cdot \log 1 + 0 \cdot \log 0) = 0.477$ \\
+\hline
+A & Gini & $2 \cdot \left(1/2 \cdot (2 \cdot 0.25 \cdot (1-0.75)) \right) = 0.375$  \\
+\hline
+B & Gini & $3/4 \cdot (2\cdot 1/3 \cdot (1- 1/3)) + 1/4 \cdot (2\cdot 1 \cdot 0) = 0.333$ \\
+\hline
+\end{tabular}
+\end{center}
+
+Thus, $A$ and $B$ have the same misclassification rates, but $B$ has both a lower cross entropy and a lower Gini impurity measure.
+
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{7. Representer Theorem}
+\subsection*{7.1 $||m_0|| = ||x||$ only if $m_0 = x$}
+
+Recall $M$ is a closed subspace of a Hilbert space $\mathcal{H}$, and $m_0 = \textrm{Proj}_Mx$ for some $x$ in $\mathcal{H}$. We want to show that we have $||m_0|| = ||x||$ only if $m_0 = x$. 
+
+Well, by the Pythagorean Theorem, we know
+\[||x||^2 = ||m_0||^2 + ||x - m_0||^2\]
+Thus, $||x||^2 = ||m_0||^2$ only if $||x - m_0||^2 = 0$. But then, note
+\[||x - m_0||^2 = \langle  x - m_0, x - m_0 \rangle = 0 \iff x - m_0 = 0\]
+since inner products are positive definite. Thus, we know $||m_0|| = ||x||$ only if $m_0 = x$.
+
+\subsection*{7.2 Completed proof of Representer Theorem}
+
+Now we complete the proof of the Representer Theorem. Recall the set up of the theorem: Let
+\[J(w) = R(||w||) + L(\langle w, \psi(x_1)\rangle, \cdots, \langle w, \psi(x_n)\rangle)\]
+where
+\begin{itemize}
+\item $R: \mathbb{R}^{\geq 0} \to \mathbb{R}$ is a nondecreasing regularization term
+\item $L: \mathbb{R}^{n} \to \mathbb{R}$ is an arbitrary loss term
+\end{itemize}
+
+We already showed  if $J(w)$ has a minimizer, then it has a minimizer of the form 
+\[w^* = \sum_{i = 1}^n \alpha_i \psi(x_i)\]
+We complete the proof by showing if $R$ (the regularization term) is strictly increasing, then all minimizers have this form. 
+\\
+
+First, let $w^*$ be a minimizer, and let $M = \textrm{span}(\psi(x_1), \cdots \psi(x_n))$. Now, let $w = \textrm{Proj}_Mw^*$, so  there exists an $\alpha$ such that $w = \sum_{i = 1}^n \alpha_i \psi(x_i)$.
+
+Then, $w^\perp := w^* - w$ is orthogonal to $M$. Moreover, since projections decrease norms, we know $||w|| \leq ||w^*||$.
+
+Now we consider two cases:
+
+\begin{itemize}
+\item \textbf{Case 1:} Assume $||w|| = ||w^*||$. Then (by the result of 7.1), $w = w^*$, so w is of the form $w = \sum_{i = 1}^n \alpha_i \psi(x_i)$.
+\item \textbf{Case 2:} Otherwise, $||w|| < ||w^*||$. Then, since $R$ is strictly increasing, $R(||w||) < R(||w^*||)$. Now, let's compare the loss terms: for all $i \in 1\cdots n$,
+\[\langle w^*, \psi(x_i)\rangle = \langle w + w^\perp, \psi(x_i)\rangle = \langle w , \psi(x_i)\rangle\]
+so
+\[L(\langle w^*, \psi(x_1)\rangle, \cdots, \langle w^*, \psi(x_n)\rangle) = L(\langle w, \psi(x_1)\rangle, \cdots, \langle w, \psi(x_n)\rangle)\]
+But this implies
+\begin{align*}
+& J(w) = R(||w||) + L(\langle w, \psi(x_1)\rangle, \cdots, \langle w, \psi(x_n)\rangle) \\
+& \qquad{} < R(||w^*||) + L(\langle w^*, \psi(x_1)\rangle, \cdots, \langle w^*, \psi(x_n)\rangle) = J(w^*)
+\end{align*}
+This yields a contradiction (since it implies $w^*$ is not a minimizer).
+\end{itemize}
+Thus, we cannot have \textbf{Case 2}, so in all cases
+\[w^* = \sum_{i = 1}^n \alpha_i \psi(x_i)\]
+
+\subsection*{7.3 Case where $R$ and $L$ are both convex in their arguments}
+
+Now suppose $R$ and $L$ are both convex in their arguments. We show this implies $J$ is a convex function of $w$, and as such $J$ has a minimizer of the form $w^* = \sum_{i=1}^n \alpha_i \psi(x_i)$.
+
+First, let's consider $R$. Recall $R$ is non-decreasing. Then, by the convexity of norms, we know
+\[||\theta w + (1 - \theta)w'|| \leq \theta ||w|| + (1 - \theta) ||w'||\]
+
+Thus (since $R$ is non-decreasing)
+\[R(||\theta w + (1 - \theta)w'||) \leq R(\theta ||w|| + (1 - \theta) ||w'||)\]
+
+Then, since $R$ is convex in it's inputs
+\[R(\theta ||w|| + (1 - \theta) ||w'||) \leq \theta R(||w||) + (1 - \theta) R(||w'||)\]
+
+Thus $R$ is convex in terms of $w$.
+
+Now let's consider $L$. First, note $L$ is a function of $(\langle w , \psi(x_1)\rangle, \cdots, \langle  w , \psi(x_n)\rangle)$.
+
+However, we can represent
+\[(\langle w , \psi(x_1)\rangle, \cdots, \langle  w , \psi(x_n)\rangle) = \Psi A w\]
+
+since every inner product in $R^d$ can be represented as $\langle x, y \rangle = x^t A y$ for some $A$\footnote{See \url{https://math.berkeley.edu/~peyam/Math110Sp13/Handouts/Dot\%20products.pdf}}. 
+
+Thus, since $L$ is convex and $\Psi A w$ is affine, their composition is convex, so $L(\Psi A w)$ is convex in $w$.
+
+Now we're ready to tackle $J(w)$. Since
+\[J(w) = R(||w||) + L( \Psi A w)\]
+$R(||w||)$ and $L(\Psi A w)$ are both convex in $w$, and positive weighted sums of convex functions are convex, we conclude $J$ is convex in $w$.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{8. Ivanov and Tikhonov Regularization}
+\subsection*{8.1 Tikhonov optimal implies Ivanov optimal}
+
+Suppose for some $\lambda > 0$ we have the Tikhonov regularization solution
+\[f_* = \arg \min_{f \in \mathcal{F}} [\phi(f) + \lambda \Omega(f)]\]
+
+We show $f_*$ is the Ivanov solution by finding an $r > 0$ such that
+\[f_* = \arg \min_{f \in \mathcal{F}} \phi(f) \textrm{ subject to } + \Omega(f) \leq r\]
+
+Specifically, take $r = \Omega(f*)$. Then we know $\Omega(f_*) \leq r = \Omega(f_*)$, so we know $f_*$ is in the feasibility set for the Ivanov problem. We proceed using contradiction to show it is in fact optimal:
+Assume that $f_*$ is not the Ivanov solution. Then there is a solution $f' \neq f_*$ such that $\phi(f') < \phi(f_*)$. Moreover, since $f'$ is the solution, it is feasible, so $\Omega(f') \leq r = \Omega(f_*)$. Additionally (multiplying both sides by $\lambda > 0$) we have $\lambda \Omega(f') \leq r = \lambda \Omega(f_*)$
+
+Thus, adding the two inequalities yields
+\[\phi(f') + \lambda \Omega(f') < \phi(f_*) + \lambda \Omega(f_*)\]
+This is our contradiction, since it implies $f_*$ is not the Tikhonov solution. Thus, $f_*$ is the Ivanov solution.
+
+\subsection*{8.2 Ivanov optimal implies  Tikhonov optimal}
+
+Now assume $\mathcal{F} = \{f_w(x):\mathcal{X} \to \mathbb{R} | w \in \mathbb{R}^d\}$. Let $w^*$ be a solution to the Ivanov problem. We proceed assuming strong duality holds for this problem, and the dual solution is attained, and show there exists a $\lambda \geq 0 $ such that $w^* = \arg \min_{w \in \mathbb{R}^d} [\phi(w) + \lambda \Omega(w)]$.
+
+\subsubsection*{8.2.1 Langrangian}
+The langrangian for the Ivanov optimization problem is
+\[L(w, \lambda) = \phi(w) + \lambda(\Omega(w) - r)\]
+
+\subsubsection*{8.2.2 Dual optimization problem}
+
+The primal problem is
+\[p^* = \inf_{w \in \mathbb{R}^d} \sup_{\lambda \geq 0} \phi(w) + \lambda(\Omega(w)-r)\]
+
+The dual problem is
+\[d^* = \sup_{\lambda \geq 0} \left[\inf_{w \in \mathbb{R}^d} \phi(w) + \lambda(\Omega(w)-r)\right]\]
+
+Letting $g(\lambda) = \inf_{w \in \mathbb{R}^d} \phi(w) + \lambda(\Omega(w)-r)$ yields
+\[d^* = \sup_{\lambda \geq 0} g(\lambda)\]
+
+\subsubsection*{8.2.3 Minimum in $g(\lambda^*)$ attained at $w^*$}
+
+Now recall we assumed the dual solution is attained, so let $\lambda^* = \arg \max_{\lambda \geq 0} g(\lambda)$. We show the minimum  in $g(\lambda^*)$ attained at $w^*$.
+First, by strong duality, we have
+\[\phi(w^*) = g(\lambda^*)\]
+Expanding we find
+\begin{align*}
+\phi(w^*) &= g(\lambda^*) \\
+	&=  \inf_{w \in \mathbb{R}^d} \phi(w) + \lambda^*(\Omega(w)-r) \\
+	&\leq \phi(w^*) + \lambda^*(\Omega(w^*)-r) \\
+\end{align*}
+Now, since $w^*$ is optimal (the solution), it is feasible, so $\Omega(w^*)-r \leq 0$. Thus (recalling $\lambda \geq 0$), we have
+\[\phi(w^*) \leq \phi(w^*) + \underbrace{\lambda^*(\Omega(w^*)-r) }_{\leq 0}\]
+which implies $\lambda^*(\Omega(w^*)-r) = 0$.
+
+Hence, we end with
+\[\phi(w^*) = g(\lambda^*) =  \inf_{w \in \mathbb{R}^d} \phi(w) + \lambda^*(\Omega(w)-r) \leq \phi(w^*) + \lambda^*(\Omega(w^*)-r) = \phi(w^*)\]
+so we conclude the minimum of the expression in $g(\lambda^*)$ is attained at $w^*$.
+
+Finally, we conclude by showing
+\[w^* =\arg \min_{w \in \mathbb{R}^d}[ \phi(w) + \lambda^* \Omega(w)]\]
+
+From above, we know (relaxing our rigor and using $\arg \min$ instead of $\inf$)
+\begin{align*}
+w^* &= \arg \min [\phi(w) + \lambda^*(\Omega(w)-r)] \\
+	&= \arg \min [\phi(w) + \lambda^*\Omega(w)-\lambda^*r] \\
+	&= \arg \min [\phi(w) + \lambda^*\Omega(w)] \qquad{} (\textrm{dropping the constant} -\lambda^*r)
+\end{align*}
+
+\subsection*{8.3 Ivanov implies Tikhonov for Ridge Regression}
+
+To show that Ivanov implies Tikhonov for the ridge regression problem (square loss with $\ell_2$ regularization), we need to demonstrate strong duality and that the dual optimum is attained. Both of these things are implied by Slater?s constraint qualifications. To demonstrate Slater's constraint qualifications are met, we need to find a strictly feasible point.
+
+First, recall the Ivanov form of the ridge regression problem is
+\[\min_{w\in\mathbb{R}^d} \frac{1}{n} ||Xw - y||^2 \textrm{ s.t. } ||w||^2 \leq r\]
+for some $r > 0$.
+Then note $w = 0 $ is strictly feasible (since $r > 0$), and the objective and constraints are convex, so by Slater's constraint qualifications strong duality holds and the dual optimum is attained.
+
+%%%---------------------------------------------------------------------------------------------------------------------
+
+\section*{9. Novelty Detection}
+\subsection*{9.1 Formulating the algorithm as an optimization problem}
+
+Recall a novelty detection algorithm can be based on an algorithm that finds the smallest possible sphere containing the data in feature space- our goal is to formulate this algorithm as an optimization problem. Well, this problem is just
+\begin{center} \[\min_{b \in \mathbb{R}} b\]
+\[\textrm{s.t.} ||\phi(x_i)||_2 \leq b \textrm{ for all } i \in \{1, \cdots, n\}\]
+\end{center}
+
+\subsection*{9.2 The Lagrangian and the primal problem}
+
+The Lagrangian for this problem is
+\[L(b, \lambda) = b+ \sum_{i=1}^n \lambda_i (||\phi(x_i)||_2 - b)\]
+The primal problem is
+\[p^* = \inf_{b \in \mathbb{R}} \sup_{\lambda \succeq 0} \left[ b+ \sum_{i=1}^n \lambda_i (||\phi(x_i)||_2 - b) \right]\]
+
+\subsection*{9.3 Demonstrating strong duality}
+
+We have strong duality by Slater's conditions:
+\begin{itemize}
+\item Convex objective
+\item Convex (affine) constraints (note $||\phi(x_i)||$ is constant given data)
+\item Feasibility by $b = \max \{ \phi(x_1), \cdots, \phi(x_n) \}$
+\end{itemize}
+
+Thus the primal and dual optima are equal.
+
+\subsection*{9.4 Solve the inner minimization and give the dual problem}
+
+First, the dual problem is
+
+\[d^* =\sup_{\lambda \succeq 0}  \inf_{b \in \mathbb{R}} \left[ b+ \sum_{i=1}^n \lambda_i (||\phi(x_i)||_2 - b) \right]\]
+
+We now solve the inner minimization problem- note $L$ is differentiable with respect to $b$, so we find $\inf_{b \in \mathbb{R}}$ by solving $\frac{\partial}{\partial b} L = 0$:
+
+\begin{align*}
+\frac{\partial}{\partial b} L &= \frac{\partial}{\partial b} \left[b+ \sum_{i=1}^n \lambda_i (||\phi(x_i)||_2 - b) \right] \\
+	&= 1 - \sum_{i = 1}^n \lambda_i \triangleq 0 \\
+	\implies \qquad{} \sum_{i = 1}^n \lambda_i &= 1
+\end{align*}
+
+Now let's return to the dual problem: note
+\begin{align*}
+d^* &=\sup_{\lambda \succeq 0}  \inf_{b \in \mathbb{R}} \left[ b+ \sum_{i=1}^n \lambda_i (||\phi(x_i)||_2 - b) \right] \\
+	&=\sup_{\lambda \succeq 0}  \inf_{b \in \mathbb{R}} \left[ b - b \sum_{i=1}^n \lambda_i + \sum_{i=1}^n \lambda_i ||\phi(x_i)||_2  \right]
+\end{align*}
+
+Then, at the minimum (since $\sum_{i = 1}^n \lambda_i = 1$), this yields
+\begin{align*}
+d^* = \max_{\lambda} & \sum_{i=1}^n \lambda_i ||\phi(x_i)||_2 \\
+	\textrm{s.t.}  &\sum_{i=1}^n \lambda_i = 1 \\
+	& \lambda_i \geq 0 \textrm{ for all } i \in \{1, \cdots, n\}
+\end{align*}
+
+\subsection*{9.5 Expression for optimal sphere}
+
+First, recall (by strong duality) $d^* = w^*$. Thus, our optimal sphere is clearly
+\[d^* = \max \{||\phi(x_1)||_2, \cdots, ||\phi(x_n)||_2\}\]
+(noting this point is clearly feasible and any other point in the convex hull of $\{||\phi(x_1)||_2, \cdots, ||\phi(x_n)||_2\}$ has a lower value).
+
+\subsection*{9.6 Complementary slackness conditions}
+
+The complementary slackness conditions for this problem are
+\[\lambda_i (||\phi(x_i)||_2 - b) = 0 \textrm{ for all } i \in \{1, \cdots, n \}\]
+Thus, the "support vectors" are those $x_i$ where $||\phi(x_i)||_2 = b$.
+
+\subsection*{9.7 Applying this algorithm to detect "novel"\footnote{Note here I am essentially defining novel instances as those instances that at least $\alpha$ from their nearest neighbors. This algorithm would fail if two instances were near in feature space, but both anomalous} instances}
+
+To apply this algorithm to detect "novel" instances, I would
+\begin{enumerate}
+\item Sort the data by decreasing length in feature space (i.e. by $||\phi(x_i)||_2$)
+\item Starting with the first (greatest length) observation, for the $i^{th}$ observation
+\begin{enumerate}
+\item Determine the smallest possible sphere that contains the data (i.e. $b_i$)
+\item Remove the observation from the dataset
+\end{enumerate}
+\item Compare the measured $b_i$s. For some threshold $\alpha > 0$ label an observation "novel" if
+\begin{itemize}
+\item \textbf{Case 1}: $i = 1$, and $b_1 - b_2 > \alpha$.
+\item \textbf{Case 2}: $1 < i < n$,  $b_i  - b_{i+1} > \alpha$, and $b_{i-1} - b_i > \alpha$.
+\item \textbf{Case 3}: $ i = n$,  $b_{n-1} - b_n > \alpha$.
+\end{itemize}
+\end{enumerate}
+
+%----------------------------------------------------------------------------------------
+
+\end{document}

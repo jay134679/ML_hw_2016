@@ -1,0 +1,130 @@
+Mistake 1- actual ranking = -1 , score = 1.31645450259 
+
+Word = the,  x = 90.0,  w = 0.0031,  xw = 0.2758
+Word = both,  x = 5.0,  w = 0.0564,  xw = 0.2822
+Word = with,  x = 13.0,  w = 0.0223,  xw = 0.2893
+Word = any,  x = 4.0,  w = -0.0748,  xw = -0.2991
+Word = an,  x = 8.0,  w = -0.0377,  xw = -0.3017
+Word = best,  x = 5.0,  w = 0.0616,  xw = 0.3081
+Word = that,  x = 20.0,  w = 0.0182,  xw = 0.3649
+Word = is,  x = 25.0,  w = 0.0186,  xw = 0.4644
+Word = have,  x = 8.0,  w = -0.0592,  xw = -0.4737
+
+
+Mistake 2- actual ranking = 1 , score = -1.10188590288 
+
+Word = about,  x = 4.0,  w = -0.0352,  xw = -0.1407
+Word = this,  x = 6.0,  w = -0.0249,  xw = -0.1494
+Word = an,  x = 4.0,  w = -0.0377,  xw = -0.1509
+Word = no,  x = 3.0,  w = -0.0547,  xw = -0.1642
+Word = woman,  x = 3.0,  w = -0.0597,  xw = -0.1792
+Word = is,  x = 10.0,  w = 0.0186,  xw = 0.1858
+Word = have,  x = 4.0,  w = -0.0592,  xw = -0.2369
+Word = her,  x = 11.0,  w = -0.0217,  xw = -0.2391
+Word = and,  x = 11.0,  w = 0.024,  xw = 0.264
+
+
+Mistake 3- actual ranking = 1 , score = -1.15931164545 
+
+Word = an,  x = 3.0,  w = -0.0377,  xw = -0.1132
+Word = things,  x = 3.0,  w = 0.0435,  xw = 0.1306
+Word = bad,  x = 1.0,  w = -0.1391,  xw = -0.1391
+Word = on,  x = 4.0,  w = -0.0368,  xw = -0.1471
+Word = with,  x = 7.0,  w = 0.0223,  xw = 0.1558
+Word = and,  x = 7.0,  w = 0.024,  xw = 0.168
+Word = more,  x = 8.0,  w = -0.0212,  xw = -0.1694
+Word = is,  x = 12.0,  w = 0.0186,  xw = 0.2229
+Word = this,  x = 9.0,  w = -0.0249,  xw = -0.224
+
+
+Mistake 4- actual ranking = 1 , score = -1.17769919849 
+
+Word = performance,  x = 2.0,  w = 0.0506,  xw = 0.1012
+Word = an,  x = 3.0,  w = -0.0377,  xw = -0.1132
+Word = most,  x = 2.0,  w = 0.0567,  xw = 0.1133
+Word = with,  x = 6.0,  w = 0.0223,  xw = 0.1335
+Word = to,  x = 15.0,  w = -0.009,  xw = -0.1344
+Word = acting,  x = 2.0,  w = -0.0683,  xw = -0.1365
+Word = bad,  x = 1.0,  w = -0.1391,  xw = -0.1391
+Word = and,  x = 6.0,  w = 0.024,  xw = 0.144
+Word = this,  x = 6.0,  w = -0.0249,  xw = -0.1494
+
+
+Mistake 5- actual ranking = -1 , score = 1.06030174446 
+
+Word = about,  x = 4.0,  w = -0.0352,  xw = -0.1407
+Word = well,  x = 2.0,  w = 0.0738,  xw = 0.1476
+Word = this,  x = 7.0,  w = -0.0249,  xw = -0.1743
+Word = plot,  x = 2.0,  w = -0.0958,  xw = -0.1915
+Word = computers,  x = 8.0,  w = 0.0248,  xw = 0.198
+Word = is,  x = 11.0,  w = 0.0186,  xw = 0.2043
+Word = what,  x = 6.0,  w = 0.0383,  xw = 0.23
+Word = too,  x = 5.0,  w = -0.0465,  xw = -0.2324
+Word = and,  x = 11.0,  w = 0.024,  xw = 0.264
+
+
+Mistake 6- actual ranking = 1 , score = -1.70089580387 
+
+Word = off,  x = 2.0,  w = -0.056,  xw = -0.112
+Word = action,  x = 5.0,  w = -0.0266,  xw = -0.133
+Word = you,  x = 3.0,  w = 0.045,  xw = 0.1349
+Word = bad,  x = 1.0,  w = -0.1391,  xw = -0.1391
+Word = and,  x = 6.0,  w = 0.024,  xw = 0.144
+Word = big,  x = 4.0,  w = -0.0401,  xw = -0.1603
+Word = is,  x = 9.0,  w = 0.0186,  xw = 0.1672
+Word = have,  x = 3.0,  w = -0.0592,  xw = -0.1777
+Word = hit,  x = 4.0,  w = -0.0499,  xw = -0.1997
+
+
+Mistake 7- actual ranking = -1 , score = 1.79500235738 
+
+Word = to,  x = 19.0,  w = -0.009,  xw = -0.1702
+Word = on,  x = 5.0,  w = -0.0368,  xw = -0.1839
+Word = may,  x = 3.0,  w = 0.0658,  xw = 0.1973
+Word = good,  x = 4.0,  w = 0.0555,  xw = 0.2222
+Word = also,  x = 4.0,  w = 0.0573,  xw = 0.2293
+Word = only,  x = 2.0,  w = -0.1165,  xw = -0.2329
+Word = very,  x = 4.0,  w = 0.0585,  xw = 0.234
+Word = plot,  x = 3.0,  w = -0.0958,  xw = -0.2873
+Word = is,  x = 20.0,  w = 0.0186,  xw = 0.3715
+
+
+Mistake 8- actual ranking = -1 , score = 1.80678925035 
+
+Word = is,  x = 10.0,  w = 0.0186,  xw = 0.1858
+Word = i,  x = 18.0,  w = 0.0106,  xw = 0.1901
+Word = on,  x = 6.0,  w = -0.0368,  xw = -0.2207
+Word = any,  x = 3.0,  w = -0.0748,  xw = -0.2243
+Word = very,  x = 4.0,  w = 0.0585,  xw = 0.234
+Word = have,  x = 4.0,  w = -0.0592,  xw = -0.2369
+Word = sense,  x = 7.0,  w = 0.0361,  xw = 0.2525
+Word = that,  x = 17.0,  w = 0.0182,  xw = 0.3102
+Word = ending,  x = 6.0,  w = 0.0552,  xw = 0.3313
+
+
+Mistake 9- actual ranking = -1 , score = 1.13484205563 
+
+Word = better,  x = 2.0,  w = -0.0595,  xw = -0.1191
+Word = others,  x = 2.0,  w = 0.068,  xw = 0.1361
+Word = to,  x = 17.0,  w = -0.009,  xw = -0.1523
+Word = is,  x = 9.0,  w = 0.0186,  xw = 0.1672
+Word = things,  x = 4.0,  w = 0.0435,  xw = 0.1741
+Word = have,  x = 3.0,  w = -0.0592,  xw = -0.1777
+Word = best,  x = 3.0,  w = 0.0616,  xw = 0.1849
+Word = american,  x = 4.0,  w = 0.0818,  xw = 0.3274
+Word = and,  x = 15.0,  w = 0.024,  xw = 0.36
+
+
+Mistake 10- actual ranking = -1 , score = 1.85025931165 
+
+Word = an,  x = 4.0,  w = -0.0377,  xw = -0.1509
+Word = to,  x = 17.0,  w = -0.009,  xw = -0.1523
+Word = 2,  x = 4.0,  w = -0.0385,  xw = -0.1541
+Word = the,  x = 53.0,  w = 0.0031,  xw = 0.1624
+Word = there's,  x = 2.0,  w = -0.0842,  xw = -0.1683
+Word = with,  x = 8.0,  w = 0.0223,  xw = 0.178
+Word = of,  x = 35.0,  w = 0.0055,  xw = 0.1914
+Word = is,  x = 13.0,  w = 0.0186,  xw = 0.2415
+Word = and,  x = 20.0,  w = 0.024,  xw = 0.48
+
+

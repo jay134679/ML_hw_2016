@@ -1,0 +1,446 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+%\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[english]{babel} % English language/hyphenation
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{mathtools} %More math! (For dscases)
+\usepackage{hyperref} %HTML package
+\usepackage{pgfplots} %Makes plots in LaTeX
+\usepackage{tikz} %Also tikz?
+\usepackage{bm} %makes vectors bold
+\usepackage{bbm} %Blackboard bold 1
+\usepackage{amssymb} %Define equal triangle
+\usepgfplotslibrary{fillbetween}%Let's me fill between named plots
+\usepackage{graphicx} %import pics
+\graphicspath{ {Python_figs/} }
+\DeclareGraphicsExtensions{.pdf,.png,.jpg}
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{ \normalfont\scshape} % Make all sections the default font and small caps
+
+
+\renewcommand{\thesubsection}{\alph{subsection}} %Make subsections start with letters
+\usepackage{array} % Center in tabular
+\usepackage{url} %typeset url
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+\usepackage{listings}
+\lstset{language=Python}
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{	Assignment 6}
+
+\author{Benjamin Jakubowski} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+
+\begin{document}
+
+\maketitle % Print the title
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 2
+%----------------------------------------------------------------------------------------
+
+\section*{2. Convex Surrogate Loss Functions}
+\subsection*{2.1 Hinge loss is a convex surrogate for 0/1 loss}
+
+Our objective in this section is to show the hinge loss is a convex surrogate for 0/1 loss. Recall a convex surrogate loss function is a convex function that is an upper bound for the loss function of interest. To show hinge loss is a convex surrogate for the 0/1 loss, we first show it is an upper bound on the 0-1 loss, and then show it is convex.
+
+\subsubsection*{2.1.a Show $1(y \ne \textrm{sign} (f(x)) \leq \max\{0, 1 - y f(x)\}$}
+
+We first show for any example $(x, y) \in \mathcal{X} \times \{-1, 1\}$,  $1(y \ne \textrm{sign} (f(x)) \leq \max\{0, 1 - y f(x)\}$. We do this through enumeration:
+\begin{center}
+\begin{tabular}{| c | c | c | c |}
+\hline
+	$y$ & $f(x)$ & $1(y \ne \textrm{sign}(f(x))$ & $\max\{0, 1 - yf(x)\}$ \\
+\hline
+	-1 & >0 & 1 & $1 - y f(x) =  1 + f(x) > 1 \textrm{  (since }f(x) > 0 )$ \\
+\hline
+	-1 & 0 & 1 & $1 + (-1)0  = 1 \geq 1$ \\
+\hline
+	-1 & <0 & 0 & $\geq 0 \textrm{  (by definition}) $\\
+\hline
+	1 & >0 & 0 & $\geq 0 \textrm{  (by definition})$ \\
+\hline
+	1 & 0 & 1 & $1 - (1)0  = 1\geq 1$ \\
+\hline
+	1 & <0 & 1 & $1 - (1)(f(x)) = 1 - f(x)  >1 \textrm{  (since }f(x) < 0 )$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{2.1.b Show hinge loss is a convex function of the margin $m$}
+
+We next show the hinge loss $\max\{0, 1 - m\}$ is a convex function of the margin $m$. First, recall
+\[f(x) = \max\{f_1(x), \cdots, f_n(x)\}\]
+is convex if the $f_i$'s are convex. Since $f_1(m) = 0$ and $f_2(m) = 1 - m$ are convex (simply note $f''(m) \geq 0$ for all $m$ for both functions), $f(m) = \max\{0, 1 - m\}$ is convex.
+
+\subsubsection*{2.1.c Hinge loss a convex function of $w$}
+
+Now let our prediction score function be $f_w(x) = w^T x$. Then the hinge loss of $f_w$ on an example $(x,y)$ is $\max\{0, 1 - yw^Tyx\}$. This is a convex function of $w$, since:
+\begin{itemize}
+\item The hinge loss is a convex function of $m = f(x)$.
+\item $f_w(x)$ is an affine function
+\item The composition of an affine function with a convex function is convex.
+\end{itemize}
+
+Thus, we've shown the hinge loss is an upper bound on the 0-1 loss, and it is convex: thus it is a convex surrogate loss function for the 0-1 loss. 
+
+\subsection*{2.2 Multiclass Hinge Loss}
+
+Now consider the multiclass problem- let
+\begin{itemize}
+\item $\mathcal{Y} = \{1, \cdots, k\}$
+\item $\mathcal{H} = \{h: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}\}$
+\item $\mathcal{F} = \{f(x) = \arg \max_{y \in \mathcal{Y}} h(x, y) | h \in \mathcal{H}\}$
+\end{itemize}
+Note $\mathcal{Y}$ is our output space, $\mathcal{H}$ is our base hypothesis space, and $\mathcal{F}$ is our final multiclass hypothesis space. Additionally, note our action space $\mathcal{A} = \mathcal{Y}$.\\
+
+Now suppose we have a multiclass loss function $\Delta: \mathcal{Y} \times \mathcal{A} \to \mathbb{R}$. Our goal is to find $f \in \mathcal{F}$ minimizing the empirical class-sensitive loss:
+
+\[\min_{f \in \mathcal{F}} \sum_{i = 1}^n \Delta(y_i, f(x_i))\]
+
+We can't use 0/1 loss, since we know it is computation intractable- thus we're looking for a convex surrogate loss function. We show the generalized hinge loss is such a function.
+
+\subsubsection*{2.2.1 Show $h(x, y) \leq h(x, f(x))$}
+
+Suppose we have chosen an $h \in \mathcal{H}$, from which we get $f(x) = \arg \max_{y \in \mathcal{Y}} h(x, y)$. We use contradiction to show that for any $x \in \mathcal{X}$ and $y \in \mathcal{Y}$ we have
+\[h(x,y) \leq h(x, f(x))\]
+
+Suppose not. Then, for some $(x', y') \in \mathcal{X} \times \mathcal{Y}$,
+\[h(x', y') > h(x', f(x'))\]
+
+Then, let
+\[f^*(x) =
+\begin{cases}
+f(x) & \textrm{ for all } x \ne x' \\
+y' & \textrm{ for } x = x'
+\end{cases}
+\]
+
+Since $h(x', f^*(x')) = h(x', y') > h (x', f(x'))$, $f$ is not the $\arg \max$. This is a contradiction, so we conclude
+\[h(x,y) \leq h(x, f(x))\]
+for all $x, y \in \mathcal{X} \times \mathcal{Y}$.
+
+\subsubsection*{2.2.2 Justifying inequalities to derive the generalized hinge loss}
+
+We next demonstrate two inequalities in order to derive the generalized hinge loss.
+
+First, from above, we have
+\[h(x,y) \leq h(x, f(x))\]
+Adding $\Delta(y, f(x))$ to both sides gives
+\[\Delta(y, f(x)) + h(x,y) \leq \Delta(y, f(x))+ h(x, f(x))\]
+Subtracting off $h(x,y)$ yields the first desired inequality:
+\[\Delta(y, f(x)) \leq \Delta(y, f(x))+ h(x, f(x)) - h(x,y)\]
+
+Now, recall $f(x) \in \mathcal{Y} = \mathcal{A}$. Thus,
+\[[\Delta(y, f(x))+ h(x, f(x)) - h(x,y)] \in \{\Delta(y, y')+ h(x, y') - h(x,y) | y' \in Y\}\]
+Hence, we have
+\[\Delta(y, f(x))+ h(x, f(x)) - h(x,y) \leq \max_{y' \in \mathcal{Y}} [\Delta(y, y')+ h(x, y') - h(x,y)]\]
+
+Now, for future reference, note we define the RHS as the generalized hinge loss:
+\[\ell(h, (x,y)) = \max_{y' \in \mathcal{Y}} [\Delta(y, y')+ h(x, y') - h(x,y)]\]
+We have shown for any $x \in \mathcal{X}, y \in \mathcal{Y}, h \in \mathcal{H}$ we have
+\[\ell(h, (x,y)) \geq \Delta(y, f(x))\]
+where $f(x) = \arg \max_{y \in \mathcal{Y}} h(x,y)$.
+
+\subsubsection*{2.2.3 Generalized hinge loss in $h_w(x,y)$}
+
+Now, let
+\begin{itemize}
+\item $\Psi: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}^d$ be a class-sensitive feature mapping
+\item $\mathcal{H} = \{h_w(x,y) = \langle w, \Psi(x, y) \rangle | w \in \mathbb{R}^d\}$
+\end{itemize}
+
+We show now rewrite the generalized hinge loss for $h_w(x,y)$ on example ($x_i, y_i$):
+\begin{align*}
+\ell(h_w, (x_i,y_i)) &= \max_{y \in \mathcal{Y}} [\Delta(y_i, y)+ h_w(x_i, y) - h(x_i,y_i)] \\
+	&= \max_{y \in \mathcal{Y}} [\Delta(y_i, y)+ \langle w, \Psi(x_i, y) \rangle -\langle w, \Psi(x_i, y_i) \rangle] \\
+	&= \max_{y \in \mathcal{Y}} [\Delta(y_i, y)+ \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle]
+\end{align*}
+
+Note the first two steps are just substitution, and the last step follows from the linearity of inner products.
+
+Next, we proceed to show the generalized hinge loss $\ell(h_w, (x_i,y_i))$ is a convex function of $w$ in three steps
+
+\subsubsection*{2.2.4a $\Delta(y_i, y)+ \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle$ affine function of $w$}
+
+Consider $\Delta(y_i, y)+ \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle$. Note this is an affine function of $w$ by definition, since it's just an inner product with $w$ plus a scalar.
+
+\subsubsection*{2.2.4b $\max_{y \in \mathcal{Y}} [\Delta(y_i, y)+ \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle]$ convex function of $w$}
+
+Next, note $\max_{y \in \mathcal{Y}} [\Delta(y_i, y)+ \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle]$ is a convex function of $w$ since its the pointwise maximum of convex (affine) functions.
+
+\subsubsection*{2.2.5 $\ell(h_w, (x_i,y_i))$ is a convex surrogate for $\Delta(y_i, f_w(x_i))$}
+
+Finally we conclude that $\ell(h_w, (x_i,y_i))$ is a convex surrogate for $\Delta(y_i, f_w(x_i))$ since
+\begin{itemize}
+\item $\ell(h_w, (x_i,y_i))$ is convex
+\item $\ell(h_w, (x_i,y_i)) \geq \Delta(y_i, f_w(x_i)$
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 3
+%----------------------------------------------------------------------------------------
+
+\section*{3. Hinge Loss is a Special Case of Generalized Hinge Loss}
+
+We now show that hinge loss is a special case of generalized hinge loss.
+
+Let
+\begin{itemize}
+\item $\mathcal{Y} = \{-1, 1\}$
+\item $\Delta(y, \hat{y}) = 1(y \ne \hat{y})$
+\item Our compatibility function be:
+\[h(x, 1) = g(x)/2\]
+\[h(x, -1) = - g(x)/2\]
+\end{itemize}
+
+We now show for this choice of $h$, multiclass hinge loss reduce to hinge loss. We do so by considering two cases, $y = 1$ and $y = -1$, each with two subcases, $y' = 1$ and $y' = -1$.
+
+\begin{itemize}
+\item \textbf{y = -1}
+\begin{itemize}
+\item \textbf{y' = -1}:
+\begin{align*}
+\Delta(y, y') + h(x, y') - h(x,y) &= \Delta(-1, -1) + h(x, -1) - h(x,-1) \\
+	&= 0 + (-g(x)/2) - (-g(x)/2) \\
+	&= 0
+\end{align*}
+\item \textbf{y' = 1}:
+\begin{align*}
+\Delta(y, y') + h(x, y') - h(x,y) &= \Delta(-1, 1) + h(x, 1) - h(x,-1) \\
+	&= 1 + (g(x)/2) - (-g(x)/2) \\
+	&= 1 + 2(g(x)/2) = 1 + g(x) = 1 - y g(x)
+\end{align*}
+\end{itemize}
+So $\max_{y' \in \mathcal{Y}}[\Delta(y,y') + h(x, y') - h(x,y)] = \max\{0, 1 - yg(x)\}$
+
+\item \textbf{y = 1}
+\begin{itemize}
+\item \textbf{y' = -1}:
+\begin{align*}
+\Delta(y, y') + h(x, y') - h(x,y) &= \Delta(1, -1) + h(x, -1) - h(x,1) \\
+	&= 1 + (-g(x)/2) - (g(x)/2) \\
+	&= 1 - 2(g(x)/2) = 1 - g(x) = 1 - y g(x)
+\end{align*}
+\item \textbf{y' = 1}:
+\begin{align*}
+\Delta(y, y') + h(x, y') - h(x,y) &= \Delta(1, 1) + h(x, 1) - h(x,1) \\
+	&= 0 + (g(x)/2) - (g(x)/2) \\
+	&= 0 
+\end{align*}
+\end{itemize}
+So $\max_{y' \in \mathcal{Y}}[\Delta(y,y') + h(x, y') - h(x,y)] = \max\{0, 1 - yg(x)\}$
+\end{itemize}
+
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 4
+%----------------------------------------------------------------------------------------
+
+\section*{4. Another formulation of Generalized Hinge Loss}
+
+In this section we investigate whether the margin loss defined in class is is just an instance of the generalized hinge loss. Recall we defined the margin of the compatibility score function as
+\[m_{i,y}(h) = h(x_i, y_i) - h(x_i, y)\]
+and the loss on an individual example $(x_i, y_i)$ to be:
+\[\max_{y}[(\Delta(y_i, y) - m_{i,y}(h))_{+}]\]
+
+\subsection*{4.1 Rewriting general hinge loss using $m$}
+
+First, note simple substitution yields:
+\begin{align*}
+\ell(h, (x_i, y_i)) &= \max_{y' \in \mathcal{Y}} [\Delta(y_i, y')+ h(x_i, y') - h(x_i,y_i)] \\
+	&= \max_{y' \in \mathcal{Y}} [\Delta(y_i, y') - (h(x_i,y_i) - h(x_i, y'))] \\
+	&= \max_{y' \in \mathcal{Y}} [\Delta(y_i, y') - m_{i,y'}(h)]
+\end{align*}
+
+\subsection*{4.2 Show multiclass hinge loss and generalized hinge loss are equivalent}
+
+Suppose $\Delta(y, y') \geq 0$ for all $y, y' \in \mathcal{Y}$.\\
+
+From 4.1, we know
+\[\ell(h, (x_i, y_i)) = \max_{y' \in \mathcal{Y}} [\Delta(y_i, y') - m_{i,y'}(h)]\]
+
+Now, from 2.2, we know $\ell(h, (x_i, y_i)) \geq \Delta(y_i, f(x))$, where $f(x) = \arg \max_{y \in \mathcal{Y}}h(x,y)$. Since $\Delta(y, y') \geq 0$ for all $y, y' \in \mathcal{Y}$, and $f(x) \in \mathcal{Y}$, we know $\Delta(y_i, f(x)) \geq 0$. Thus,
+\[\ell(h, (x_i, y_i)) \geq \Delta(y_i, f(x)) \geq 0\]
+
+Thus
+\[\ell(h, (x_i, y_i)) = \max_{y' \in \mathcal{Y}} [\Delta(y_i, y') - m_{i,y'}(h)] \geq 0\]
+
+Now, noting that the $(\cdot)_+$ function is
+\[(x)_+ = 
+\begin{cases}
+x &\textrm{ if } x \geq 0\\
+0 &\textrm{ if } x < 0
+\end{cases}
+\]
+it is clear that (given the maximum is positive), 
+
+\[\max_{y' \in \mathcal{Y}} [\Delta(y_i, y') - m_{i,y'}(h)] = \max_{y' \in \mathcal{Y}} \left[\left(\Delta(y_i, y') - m_{i,y'}(h)\right)_+\right]\]
+
+\subsection*{4.3 Show $\ell(h, (x_i, y_i)) = 0$ if $\Delta(y,y) = 0$ for all $y \in \mathcal{Y}$}
+
+First, we assume
+\begin{enumerate}
+\item $f(x_i) = \arg \max_{y' \in \mathcal{Y}} h(x_i, y') = y_i$ (i.e. we predict correctly).
+\item $m_{i,y}(h) = h(x_i, y_i) - h(x_i, y) \geq \Delta(y_i,y)$ for all $y \ne y_i$. 
+\item $\Delta(y,y) = 0$ for all $y \in \mathcal{Y}$.
+\end{enumerate}
+
+Now, recall (from 4.3)
+
+\[\ell(h, (x_i, y_i)) =  \max_{y' \in \mathcal{Y}} \left[\left(\Delta(y_i, y') - m_{i,y'}(h)\right)_+\right]\]
+
+Now we consider two cases: $y = y_i$ and $y \ne y_i$.
+
+\begin{itemize}
+\item \textbf{Case 1}: If $y = y_i$, then
+\begin{align*}
+\Delta(y_i, y) &= \Delta(y_i, y_i) = 0 \textrm{ (by assumption 3)}\\
+m_{i, y}(h) &= h(x_i, y_i) - h(x_i, y) = h(x_i, y_i) - h(x_i, y_i) = 0 \\
+\implies \qquad{} \left(\Delta(y_i, y) - m_{i,y}(h)\right)_+ = 0
+\end{align*}
+\item \textbf{Case 2}: If $y \ne y_i$, then
+\begin{align*}
+(\Delta(y_i, y) - m_{i, y}(h)) & \leq 0 \textrm{ (by assumption 2)} \\
+\implies \qquad{} \left(\Delta(y_i, y) - m_{i,y}(h)\right)_+ &= 0
+\end{align*}
+\end{itemize}
+
+Thus, 
+\[\ell(h, (x_i, y_i)) =  \max_{y' \in \mathcal{Y}} \left[\left(\Delta(y_i, y') - m_{i,y'}(h)\right)_+\right] = \max \{0, \cdots, 0\} = 0 \]
+
+%----------------------------------------------------------------------------------------
+%	PROBLEM 5
+%----------------------------------------------------------------------------------------
+
+\section*{5. SGD for Multiclass SVM}
+
+\subsection*{5.1 Showing $J(w)$ is a convex function of $w$}
+
+Now suppose we have
+\begin{itemize}
+\item Outcome and action space: $\mathcal{Y} = \mathcal{A} = \{1, \cdots, k\}$
+\item Class-sensitive loss function $\Delta: \mathcal{Y} \times \mathcal{A} \to \mathbb{R}^{\geq 0}$
+\item Class-sensitive feature mapping $\Psi: \mathcal{X} \times \mathcal{Y} \to \mathbb{R}^d$
+\item Prediction function $f: \mathcal{X} \to \mathcal{Y}$ given by
+\[f_w(x) = \arg \max_{y \in \mathcal{Y}} \langle w, \Psi(x,y) \rangle\]
+\end{itemize}
+
+For a training set $(x_1, y_1), \cdots, (x_n, y_n)$ let $J(w)$ be the $\ell_2$-regularized empirical risk function for the multiclass hinge loss:
+
+\[J(w) = \lambda ||w||^2 + \frac{1}{n} \sum_{i = 1}^n \max_{y \in \mathcal{Y}}[\Delta(y_i, y) +  \langle w, \Psi(x_i,y) - \Psi(x_i,y_i) \rangle ]\]
+
+We proceed to show $J(w)$ is convex in three steps:
+
+\subsubsection*{5.1.a $\frac{1}{n} \sum_{i = 1}^n \max_{y \in \mathcal{Y}}[\Delta(y_i, y) +  \langle w, \Psi(x_i,y) - \Psi(x_i,y_i) \rangle$ is a convex function of $w$}
+
+$\frac{1}{n} \sum_{i = 1}^n \max_{y \in \mathcal{Y}}[\Delta(y_i, y) +  \langle w, \Psi(x_i,y) - \Psi(x_i,y_i) \rangle$ is a convex function of $w$ since it is a non-negative weighted sum of convex functions (see 2.2.4.a)
+
+\subsubsection*{5.1.b $||w||^2$ is a convex function of $w$}
+
+$||w||^2$ is a convex function of $w$ since\footnote{See \url{https://davidrosenberg.github.io/mlcourse/Notes/convex-optimization.pdf}}
+\begin{itemize}
+\item $g(x)^p$ is convex in $x$ for $p \geq 1$ (here $p=2$) if $g(x)$ is convex and non-negative, and
+\item Norms are convex (and non-negative)
+\end{itemize}
+
+\subsubsection*{5.1.c $J(w)$ is a convex function of $w$}
+
+Finally, by $\lambda > 0$ we again have a non-negative weighted sum of convex functions, so $J(w)$ is a convex function of $w$.
+
+\subsection*{5.2 Subgradient of $J(w)$}
+
+Since $J(w)$ is convex, it has a subgradient at every point. We find an expression for a subgradient of $J(w)$.
+
+First, let $\hat{y}_i = \arg \max_{y \in \mathcal{Y}} [\Delta(y_i,y) + \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle ]$
+
+Then, from homework 3 question 2.1, we know if
+
+\[g \in \partial [\Delta(y_i, \hat{y}_i) + \langle w, \Psi(x_i, \hat{y}_i) - \Psi(x_i, y_i) \rangle ]\]
+
+then
+
+\[g \in \partial [\ell(h_w, (x_i, y_i)) ]\]
+
+where, as previously,
+
+\[\ell(h_w, (x_i, y_i)) = \max_{y \in \mathcal{Y}} [\Delta(y_i,y) + \langle w, \Psi(x_i, y) - \Psi(x_i, y_i) \rangle ]\]
+
+Next, note
+
+\[(\Psi(x_i, \hat{y}_i) - \Psi(x_i, y_i)) \in \partial [\Delta(y_i, \hat{y}_i) + \langle w, \Psi(x_i, \hat{y}_i) - \Psi(x_i, y_i) \rangle ]\]
+
+Before proceeding, recall if
+\[f = f_1 + \cdots + f_m\]
+\[\partial f(x) = \partial f_1(x) + \cdots + \partial f_m(x)\]
+
+This implies
+
+\[\left[2\lambda w + \frac{1}{n} \sum_{i = 1}^n \left(\Psi(x_i, \hat{y}_i) - \Psi(x_i, y_i)\right) \right]\in \partial J(w)\]
+
+\subsection*{5.3 stochastic subgradient of $J(w)$ based on the point $(x_i, y_i)$}
+
+First, note
+\begin{align*}
+J(w) &= \lambda \Omega(w) + \frac{1}{n} \sum_{i = 1}^n \ell(h_w, (x_i, y_i)) \\
+	&= \frac{1}{n} \sum_{i = 1}^n g_i(w)
+\end{align*}
+where
+\[g_i(w) = \lambda \Omega(w) + \ell(h_w, (x_i, y_i))\]
+
+Then our stochastic subgradient based on the point $(x_i, y_i)$ is just
+\[2 \lambda w + \left(\Psi(x_i, \hat{y}_i) - \Psi(x_i, y_i)\right) \in \partial [\lambda \Omega(w) + \ell(h_w, (x_i, y_i))] = \partial g_i(w) \]
+
+\subsection*{5.4 Minibatch subgradient of $J(w)$ based on the point $(x_i, y_i)$}
+
+Now, we're finding a minibatch subgradient based on the points $(x_i, y_i), \cdots, (x_{i+m-1}, y_{i + m -1})$. Thus, our subgradient is
+
+\[\left[2\lambda w + \frac{1}{m} \sum_{k = 0}^{m -1} \left(\Psi(x_{i + k}, \hat{y}_{i + k}) - \Psi(x_{i + k}, y_{i + k})\right) \right]\in \partial J_{minibatch}(w)\]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}
